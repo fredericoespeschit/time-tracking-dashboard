@@ -1,7 +1,9 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import '../App.css';
+import axios from 'axios';
 
 const Leagues = () => {
+  const [data, setData] = useState([]);
   return (
     <div className="info">
     <div class="header">
