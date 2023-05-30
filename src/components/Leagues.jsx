@@ -4,6 +4,26 @@ import axios from 'axios';
 
 const Leagues = () => {
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://v3.football.api-sports.io/countries', {
+          headers: {
+            'x-rapidapi-key': '67cd41eae8f3eca693238aa2ff1cecfc',
+            'x-rapidapi-host': 'v3.football.api-sports.io'
+          }
+        });
+        // setData(response.data);
+        console.log(response)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="info">
     <div class="header">
