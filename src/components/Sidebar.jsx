@@ -8,11 +8,11 @@ const Sidebar = () => {
 
   return (
         <div className="sidebar">
-          <div class="logo">Api Football</div>
-          <div class="navlinks">
+          <div className="logo">Api Football</div>
+          <div className="navlinks">
             <nav>
               <ul>
-                <li class="active"><img src="../image/icons/bookmark-1.svg" alt="" /><span>Home</span></li>
+                <li className="active"><img src="../image/icons/bookmark-1.svg" alt="" /><span>Home</span></li>
                 <li><img src="./image/icons/bookmark-1.svg" alt="" /><span onClick={()=>setActive(false)}>Standings</span></li>
                 <li><img src="./image/icons/graduation-cap-1.svg" alt="" /><span onClick={()=>setActive(true)}>Leagues</span></li>
               </ul>
