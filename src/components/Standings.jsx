@@ -1,42 +1,31 @@
-import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Standings = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("https://v3.football.api-sports.io/standings/", {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "v3.football.api-sports.io",
-        "x-rapidapi-key": "67cd41eae8f3eca693238aa2ff1cecfc"
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://v3.football.api-sports.io/standings?league=40&season=2019", {
+          headers: {
+            "x-rapidapi-host": "v3.football.api-sports.io",
+            "x-rapidapi-key": "67cd41eae8f3eca693238aa2ff1cecfc"
+          }
+        });
+        const matchesList = response.data['response'];
+        setData(matchesList);
+        console.log(matchesList);
+      } catch (err) {
+        console.log(err);
       }
-    })
-    .then(response => response.json()) // Transforma a resposta em JSON
-    .then(data => {
-      setData(data.response.league);
-      console.log(data.response.league) // Define apenas os dados relevantes no estado
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  }, []);
-  
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.get('https://api-football.com/standings?league=39&season=2019', {
-    //       headers: {
-    //         'x-rapidapi-host': 'v3.football.api-sports.io',
-    //         'x-rapidapi-key': '67cd41eae8f3eca693238aa2ff1cecfc'
-    //       }
-    //     });
-    //     setData(response);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+    };
 
-    // fetchData();
+    if (data === null) {
+      fetchData();
+    }
+  }, [data]);
+
   return (
     <div className="info">
       <div className="header">
@@ -62,10 +51,11 @@ const Standings = () => {
       <div className="dividing-line"></div>
       <div className="main">
         {data ? (
-          data.map((item) => (
-            <div key={item.id}>
-              <img src={item.flag} alt='' />
-              <p>{item.name}</p>
+          data.map((item, index) => (
+            // console.log(item)
+            <div key={index}>
+              <img src={item.league.flag} alt='' />
+              <p>{item.league.name}</p>
             </div>
           ))
         ) : (
@@ -73,7 +63,7 @@ const Standings = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Standings;
